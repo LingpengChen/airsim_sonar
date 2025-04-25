@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import os
+import os, re
 import glob
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     """
     # 获取目录中所有的.npy文件
     npy_files = glob.glob(os.path.join(depth_data_dir, "*.npy"))
-    
+    npy_files = sorted(npy_files, key=lambda x: os.path.basename(x).split('_')[1] + os.path.basename(x).split('_')[2]  + os.path.basename(x).split('_')[3])
     if save_dir and not os.path.exists(save_dir):
         os.makedirs(save_dir)
     

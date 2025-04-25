@@ -24,6 +24,22 @@ def calculate_intrinsics(fov_deg, width=640, height=480):
 client = airsim.MultirotorClient()
 client.confirmConnection()
 
+# success = client.simSetSegmentationObjectID("[\w]*", 0, True)
+# print(success)
+success = client.simSetSegmentationObjectID("SM_URock[\w]*", 2, True)
+print(success)
+
+success = client.simSetSegmentationObjectID("SM_KI-[\w]*", 0, True)
+print(success)
+
+success = client.simSetSegmentationObjectID("SM_Sub[\w]*", 1, True)
+print(success)
+
+
+success = client.simSetSegmentationObjectID("Landscape1", 4, True)
+print(success)
+
+
 
 def save_depth_to_npy(depth_data, save_dir="depth_data"):
     """
@@ -90,7 +106,7 @@ try:
         depth_response = responses[2]
         depth_perspective_image = np.array(depth_response.image_data_float, dtype=np.float32)
         depth_perspective_image = depth_perspective_image.reshape(depth_response.height, depth_response.width)
-        filepath = save_depth_to_npy(depth_perspective_image)
+        # filepath = save_depth_to_npy(depth_perspective_image)
         _, sonar_image = generate_sonar_view(depth_perspective_image)
         cv2.imshow("sonar_image", sonar_image)
         
